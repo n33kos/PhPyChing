@@ -1,0 +1,165 @@
+body{
+	font-family: 'Ubuntu Mono', monospace;
+	height:100%;
+	background: #444;
+	margin: 0; 
+	text-align: center;
+}
+.container{
+	top:0;
+	width:60%;
+	margin: 0 auto;
+	color: white;
+	padding: 15px;
+	border-left:1px solid #666;
+	border-right:1px solid #666;
+	font-size: 13px;
+}
+p{
+	width: 100%;
+}
+.text-center{
+	text-align:center;
+}
+input{
+	width:400px;
+	margin: 0 auto;
+	margin-top: 15px;
+}
+a, a:hover, a:active, a:visited{
+	color:white;
+	font-size:12px;
+}
+h1{
+	margin-bottom:0px;
+}
+h3{
+	margin-bottom: 5px;
+}
+@media(max-width:767px){
+	.container{
+		width:100%;
+		padding: 0 15px 0 15px auto;
+	}
+}
+.oldyin{
+	position:relative;
+	height: 10px;
+	width: 90px;
+	margin: 5px;
+	background:white;
+	box-shadow: 0 0 15px black;
+}
+.oldyin:after{
+	content:'';
+	position:absolute;
+	width: 10px;
+	height: 10px;
+	top: 0;
+	right: -20px;
+	border-radius: 5px;
+	background:white;
+	box-shadow: 0 0 15px black;
+}
+.yin{
+	position:relative;
+	height: 10px;
+	width: 90px;
+	margin: 5px;
+	background:white;
+	box-shadow: 0 0 15px black;
+}
+.yang{
+	position:relative;
+	height: 10px;
+	width: 30px;
+	margin: 5px;
+	background:white;
+	box-shadow: 0 0 15px black;
+}
+.yang:after{
+	content:'';
+	position:absolute;
+	height: 10px;
+	width: 30px;
+	margin: 5px;
+	background:white;
+	box-shadow: 0 0 15px black;
+	top:-5px;
+	right: -65px;
+}
+.oldyang{
+	position:relative;
+	height: 10px;
+	width: 30px;
+	margin: 5px;
+	background:white;
+	box-shadow: 0 0 15px black;
+}
+.oldyang:after{
+	content:'';
+	position:absolute;
+	height: 10px;
+	width: 30px;
+	margin: 5px;
+	background:white;
+	box-shadow: 0 0 15px black;
+	top:-5px;
+	right: -65px;
+}
+.oldyang:before{
+	content:'';
+	position:absolute;
+	width: 10px;
+	height: 10px;
+	top: 0;
+	right: -80px;
+	border-radius: 5px;
+	background: white;
+	box-shadow: 0 0 15px black;
+}
+.hexagram{
+	width: 100px;
+	margin: 0 auto;
+	margin-top:25px;
+}
+.trigrams{
+	width: 150px;
+	font-size: 18px;
+	text-align: center;
+	line-height: 30px;
+	text-transform: uppercase;
+	color: black;
+	box-shadow: 0 0 20px black;
+	margin:0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.uppertrigram{
+	border-bottom: 1px solid black;
+}
+.Earth{
+	background:#101C10;
+	color:white;
+}
+.Mountain{
+	background:blue;
+}
+.Water{
+	background:green;
+}
+.Wood{
+	background:cyan;
+}
+.Thunder{
+	background:red;
+}
+.Fire{
+	background:magenta;
+}
+.Lake{
+	background:yellow;
+}
+.Heaven{
+	background:#ffffff;
+}
