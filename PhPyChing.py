@@ -453,7 +453,7 @@ def interpret_lines(hexvalue,linesvalue):
 		if linesvalue[4] == "1":
 			linesReturn = linesReturn + "Six in the fifth place means:<br>Tears in floods, sighing and lamenting.<br>Good fortune. <br><br>"
 		if linesvalue[5] == "1":
-			linesReturn = linesReturn + "e third place, but with a real change of heart.<br><br><br>"
+			linesReturn = linesReturn + "Nine at the top means:<br>The king used him to march forth and chastise.<br>Then it is best to kill the leaders<br>And take captive the followers. No blame.<br><br>"
 		return linesReturn
 	if hexvalue == "001110":
 		linesReturn = ""
@@ -1243,7 +1243,7 @@ def interpret_hexagram(hexvalue):
 	if hexvalue == "010000":
 		return "(Shih) The Army - 7"
 	if hexvalue == "000010":
-		return "(Pi) Holding Together [union - 8"
+		return "(Pi) Holding Together [union] - 8"
 	if hexvalue == "111011":
 		return "(Hsiao Ch'u) The Taming Power of the Small - 9"
 	if hexvalue == "110111":
