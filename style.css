@@ -6,11 +6,7 @@ body{
 	text-align: center;
 }
 .container{
-	top:0;
-	width:60%;
-	margin: 0 auto;
 	color: white;
-	padding: 15px;
 	border-left:1px solid #666;
 	border-right:1px solid #666;
 	font-size: 13px;
@@ -35,12 +31,6 @@ h1{
 }
 h3{
 	margin-bottom: 5px;
-}
-@media(max-width:767px){
-	.container{
-		width:100%;
-		padding: 0 15px 0 15px auto;
-	}
 }
 .oldyin{
 	position:relative;
@@ -138,27 +128,35 @@ h3{
 .uppertrigram{
 	border-bottom: 1px solid black;
 }
+.colorcube{
+	width:15px;
+	height:15px;
+	position:relative;
+	margin:0 auto;
+	margin-top:15px;
+	display: inline-block;
+}
 .Earth{
-	background:#101C10;
+	background:#000000;
 	color:white;
 }
 .Mountain{
-	background:blue;
+	background:#6B4724;
 }
 .Water{
-	background:green;
+	background:#0066CC
 }
 .Wood{
-	background:cyan;
+	background:#336600;
 }
 .Thunder{
-	background:red;
+	background:#FFFF66;
 }
 .Fire{
-	background:magenta;
+	background:#FF6600;
 }
 .Lake{
-	background:yellow;
+	background:#339966;
 }
 .Heaven{
 	background:#ffffff;

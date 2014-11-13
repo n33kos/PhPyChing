@@ -1368,8 +1368,6 @@ arg1 = sys.argv[0]
 if arg1 != '':
 	randomSeed = arg1
 
-os.system('cls')
-
 #Three Coin Toss Method
 hexagrambyte = ""
 linesbyte = ""
@@ -1488,12 +1486,12 @@ print lowerTrigram
 print '</div>'
 print '</div>'
 
-print '<h3>---The Judgement---</h3>'
+print '<h3>The Judgement</h3>'
 print theJudgment
 
-print '<h3>---The Image---</h3>'
+print '<h3>The Image</h3>'
 print theImage
 
 if theLines != '':
-	print '<h3>---The Lines---</h3>'
+	print '<h3>The Lines</h3>'
 	print theLines
