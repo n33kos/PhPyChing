@@ -2,9 +2,29 @@
 # -*- coding: latin-1 -*-
 import sched, time, datetime, random, os, sys
 
+
+#-----------------------------------------
+#--------------CLASSES--------------------
+#-----------------------------------------
+class hexagramObject(object):
+	def __init__(self, title, theImage, theJudgment, theLines, upperTrigram, lowerTrigram, hexagram, lines):
+		self.title = title
+		self.theImage = theImage
+		self.theJudgment = theJudgment
+		self.theLines = theLines
+		self.upperTrigram = upperTrigram
+		self.lowerTrigram = lowerTrigram
+		self.hexagram = hexagram
+		self.lines = lines
+
+
 #----------------------------------------------------------------
-#-------------Hexagram Interpretation Functions------------------
+#-------------------------FUNCTIONS------------------------------
 #----------------------------------------------------------------
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
 def interpret_lines(hexvalue,linesvalue):
 	if hexvalue == "111111":
 		linesReturn = ""
@@ -1358,139 +1378,218 @@ def interpret_hexagram(hexvalue):
 	if hexvalue == "010101":
 		return "(Wei Chi) Before Completion - 64"
 
+def interpretUpperTrigram(hexagram):
+	#get upper trigram
+	uppertest = hexagram[-3:]
+	upperTrigram = ""
+	if uppertest == "000":
+		upperTrigram = "Earth"
+	if uppertest == "001":
+		upperTrigram = "Mountain"
+	if uppertest == "010":
+		upperTrigram = "Water"
+	if uppertest == "011":
+		upperTrigram = "Wood"
+	if uppertest == "100":
+		upperTrigram = "Thunder"
+	if uppertest == "101":
+		upperTrigram = "Fire"
+	if uppertest == "110":
+		upperTrigram = "Lake"
+	if uppertest == "111":
+		upperTrigram = "Heaven"
+	return upperTrigram
+
+def interpretLowerTrigram(hexagram):
+	#get lower trigram
+	lowertest = hexagram[:3]
+	lowerTrigram = ""
+	if lowertest == "000":
+		lowerTrigram = "Earth"
+	if lowertest == "001":
+		lowerTrigram = "Mountain"
+	if lowertest == "010":
+		lowerTrigram = "Water"
+	if lowertest == "011":
+		lowerTrigram = "Wood"
+	if lowertest == "100":
+		lowerTrigram = "Thunder"
+	if lowertest == "101":
+		lowerTrigram = "Fire"
+	if lowertest == "110":
+		lowerTrigram = "Lake"
+	if lowertest == "111":
+		lowerTrigram = "Heaven"
+	return lowerTrigram
+
+def printHexagram(hexagram,lines):
+	for x in reversed(xrange(3, 6)):
+		if hexagram[x] == "1":
+			if lines[x] == "1":
+				print "------ *"
+			else:
+				print "------"
+		else:
+			if lines[x] == "1":
+				print "--  -- *"
+			else:
+				print "--  --"
+	for x in reversed(xrange(0, 3)):
+		if hexagram[x] == "1":
+			if lines[x] == "1":
+				print "------ *"
+			else:
+				print "------"
+		else:
+			if lines[x] == "1":
+				print "--  -- *"
+			else:
+				print "--  --"
+
+def outputHexagram(hexagram):
+	clear()
+
+	print ''
+	print hexagram.title
+
+	print ''
+	printHexagram(hexagram.hexagram,hexagram.lines)
+	print ''
+
+	print hexagram.upperTrigram
+	print '----------'
+	print hexagram.lowerTrigram
+
+	print '\n---The Judgement---'
+	print hexagram.theJudgment
+
+	print '\n---The Image---'
+	print hexagram.theImage
+
+	if hexagram.theLines != '':
+		print '\n---The Lines---'
+		print hexagram.theLines
+
+def createHexagram(randomSeed): 
+	#get random seed from first argument
+	if randomSeed == None:
+		randomSeed = 'yinyang'
+
+	#---Three Coin Toss Method---
+	#----------------------------
+	hexagram = ""
+	lines = ""
+	lowerTrigram = ""
+	upperTrigram = ""
+	hexagramNumber = 0
+
+	#grab time
+	ts = time.time()
+	#format the time
+	st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+	#add random seed to timestamp
+	momentarySeed = randomSeed + unicode(ts)
+	#seed the random number generator
+	random.seed(momentarySeed)
+	
+	for x in xrange(0, 6):
+		val1 = random.random()
+		val2 = random.random()
+		val3 = random.random()
+		if val1 > 0.5:
+			if val2 > 0.5:
+				if val3 > 0.5:
+					lines += "1"
+					hexagram += "1"
+				elif val3 < 0.5:
+					lines += "0"
+					hexagram += "1"
+			elif val2 < 0.5:
+				if val3 > 0.5:
+					lines += "0"
+					hexagram += "1"
+				if val3 < 0.5:
+					lines += "0"
+					hexagram += "0"
+		elif val1 < 0.5:
+			if val2 < 0.5:
+				if val3 < 0.5:
+					lines += "1"
+					hexagram += "0"
+				elif val3 > 0.5:
+					lines += "0"
+					hexagram += "0"
+			elif val2 > 0.5:
+				if val3 < 0.5:
+					lines += "0"
+					hexagram += "0"
+				if val3 > 0.5:
+					lines += "0"
+					hexagram += "1"
+
+	title = interpret_hexagram(hexagram)
+	theImage = interpret_image(hexagram)
+	theJudgment = interpret_judgment(hexagram)
+	theLines = interpret_lines(hexagram, lines)
+	upperTrigram = interpretUpperTrigram(hexagram)
+	lowerTrigram = interpretLowerTrigram(hexagram)
+
+	hexagramReturn = hexagramObject(title,theImage,theJudgment,theLines,upperTrigram,lowerTrigram,hexagram,lines)
+	return hexagramReturn
+
+def ChingChain(initialHexagram, chainLength):
+	#Calculate the movement from starting point {initialHexagram} for {chainLength} number of hexagrams.
+	#These always result in repeating patterns of 4 hexagrams
+	hexagrams = [initialHexagram]
+	tempHex = list(initialHexagram.hexagram)
+	tempLines = list(initialHexagram.lines)
+	for x in range(0, chainLength):
+		newesthex = []
+		newestline = []
+		for y in xrange(0, 6):
+			if tempHex[y] == '0':
+				if tempLines[y] == '1':
+					newesthex.append('1')
+				else:
+					newesthex.append('0')
+			elif tempHex[y] == '1':
+				if tempLines[y] == '1':
+					newesthex.append('0')
+				else:
+					newesthex.append('1')
+		for z in xrange(0, 6):
+			if tempLines[z] == '0':
+				newestline.append('1')
+			if tempLines[z] == '1':
+				newestline.append('0')
+		
+		tempHex = newesthex
+		tempLines = newestline
+
+		hexagrams.append(getHexagramFromBytes(''.join(newesthex),''.join(newestline)))
+	return hexagrams
+
+def getHexagramFromBytes(hexagramByte="111111",linesByte="000000"):
+	#---Get a specific hexagram by its hexagram byte---
+	title = interpret_hexagram(hexagramByte)
+	theImage = interpret_image(hexagramByte)
+	theJudgment = interpret_judgment(hexagramByte)
+	theLines = interpret_lines(hexagramByte, linesByte)
+	upperTrigram = interpretUpperTrigram(hexagramByte)
+	lowerTrigram = interpretLowerTrigram(hexagramByte)
+
+	hexagramReturn = hexagramObject(title,theImage,theJudgment,theLines,upperTrigram,lowerTrigram,hexagramByte,linesByte)
+	return hexagramReturn
 
 #-----------------------------------------
-#-------------Processing------------------
+#-------------ARGUMENTS-------------------
 #-----------------------------------------
-
-#get random seed from first argument
 randomSeed = 'yinyang'
 arg1 = sys.argv[0]
 if arg1 != '':
 	randomSeed = arg1
 
-#Three Coin Toss Method
-hexagrambyte = ""
-linesbyte = ""
-lowerTrigram = ""
-upperTrigram = ""
-hexagramNumber = 0
-linesStrings = []
-ts = time.time()
-st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-momentarySeed = randomSeed + unicode(ts)
-random.seed(momentarySeed)
-for x in xrange(0, 6):
-	val1 = random.random()
-	val2 = random.random()
-	val3 = random.random()
-	if val1 > 0.5:
-		if val2 > 0.5:
-			if val3 > 0.5:
-				linesbyte += "1"
-				hexagrambyte += "1"
-				linesStrings.append("--------- *")
-			elif val3 < 0.5:
-				linesbyte += "0"
-				hexagrambyte += "1"
-				linesStrings.append("---------")
-		elif val2 < 0.5:
-			if val3 > 0.5:
-				linesbyte += "0"
-				hexagrambyte += "1"
-				linesStrings.append("---------")
-			if val3 < 0.5:
-				linesbyte += "0"
-				hexagrambyte += "0"
-				linesStrings.append("---   ---")
-	elif val1 < 0.5:
-		if val2 < 0.5:
-			if val3 < 0.5:
-				linesbyte += "1"
-				hexagrambyte += "0"
-				linesStrings.append("---   --- *")
-			elif val3 > 0.5:
-				linesbyte += "0"
-				hexagrambyte += "0"
-				linesStrings.append("---   ---")
-		elif val2 > 0.5:
-			if val3 < 0.5:
-				linesbyte += "0"
-				hexagrambyte += "0"
-				linesStrings.append("---   ---")
-			if val3 > 0.5:
-				linesbyte += "0"
-				hexagrambyte += "1"
-				linesStrings.append("---------")
-	if x == 2:
-		#get lower trigram
-		if hexagrambyte == "000":
-			lowerTrigram = "Earth"
-		if hexagrambyte == "001":
-			lowerTrigram = "Mountain"
-		if hexagrambyte == "010":
-			lowerTrigram = "Water"
-		if hexagrambyte == "011":
-			lowerTrigram = "Wood"
-		if hexagrambyte == "100":
-			lowerTrigram = "Thunder"
-		if hexagrambyte == "101":
-			lowerTrigram = "Fire"
-		if hexagrambyte == "110":
-			lowerTrigram = "Lake"
-		if hexagrambyte == "111":
-			lowerTrigram = "Heaven"
-	if x == 5:
-		#get upper trigram
-		uppertest = hexagrambyte[-3:]
-		if uppertest == "000":
-			upperTrigram = "Earth"
-		if uppertest == "001":
-			upperTrigram = "Mountain"
-		if uppertest == "010":
-			upperTrigram = "Water"
-		if uppertest == "011":
-			upperTrigram = "Wood"
-		if uppertest == "100":
-			upperTrigram = "Thunder"
-		if uppertest == "101":
-			upperTrigram = "Fire"
-		if uppertest == "110":
-			upperTrigram = "Lake"
-		if uppertest == "111":
-			upperTrigram = "Heaven"
-
-#Output
-hexagram = interpret_hexagram(hexagrambyte)
-theImage = interpret_image(hexagrambyte)
-theJudgment = interpret_judgment(hexagrambyte)
-theLines = interpret_lines(hexagrambyte, linesbyte)
-
-#Clear Screen Windows
-os.system('cls')
-#Clear Screen Linux / os x
-os.system('clear')
-
-print ''
-print hexagram
-
-for x in reversed(xrange(3, 6)):
-	print linesStrings[x]
-for x in reversed(xrange(0, 3)):
-	print linesStrings[x]
-
-print ''
-
-print upperTrigram
-print '----------'
-print lowerTrigram
-
-print '\n---The Judgement---'
-print theJudgment
-
-print '\n---The Image---'
-print theImage
-
-if theLines != '':
-	print '\n---The Lines---'
-	print theLines
+#-----------------------------------------
+#---------------INITS---------------------
+#-----------------------------------------
+outputHexagram(createHexagram(randomSeed))
