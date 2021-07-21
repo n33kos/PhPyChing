@@ -1,3 +1,10 @@
+# DEPRECATED
+
+This repository is deprecated. It was a first pass for a concept which I've since improved upon. It has a serious flaw in the content which badly mistmatches the majority of the readings.
+
+Please head over to https://github.com/n33kos/iChingAPI for a php api version of this service which uses a sqlite API to store the data instead of hardcoding the text which makes mistakes much easier to correct
+
+
 PhPyChing
 =========
 PhPyChing is an iChing reading generator written in python and deployed with a simple PHP interface. It currently utilizes the three coin casting method and generates a full reading with changing lines. The text is extracted from Richard Wilhelm’s and Cary F. Baynes’ translations.

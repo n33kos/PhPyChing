@@ -661,7 +661,7 @@ def interpret_lines(hexvalue,linesvalue):
 		if linesvalue[3] == "1":
 			linesReturn = linesReturn + "Nine in the fourth place means:<br>No fish in the tank.<br>This leads to misfortune.<br><br>"
 		if linesvalue[4] == "1":
-			linesReturn = linesReturn + "Nine in the fifth place means:<br>A melon covered with willow leaves.<br>Hidden lines.<br>Then it drops down to one from heave.<br><br>"
+			linesReturn = linesReturn + "Nine in the fifth place means:<br>A melon covered with willow leaves.<br>Hidden lines.<br>Then it drops down to one from heaven.<br><br>"
 		if linesvalue[5] == "1":
 			linesReturn = linesReturn + "Nine at the top means:<br>He comes to meet with his horns.<br>Humiliation. No blame.<br><br>"
 		return linesReturn
